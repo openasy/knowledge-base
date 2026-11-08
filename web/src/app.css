@@ -1,0 +1,166 @@
+/* The few layouts this product needs that @openasy/ui's prebuilt styles do not include. Colours stay in the library's tokens. */
+
+.kb-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kb-topic:hover:not([aria-current]) {
+  background: var(--oa-canvas);
+}
+
+.kb-search {
+  width: 14rem;
+}
+
+fieldset.border-0 {
+  padding: 0;
+}
+
+/* Topics, the list and the article beside it; the article goes under the list until the screen is wide. */
+.kb-articles,
+.kb-review,
+.kb-editor,
+.kb-split-side,
+.kb-split-halves {
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 1280px) {
+  .kb-articles {
+    grid-template-columns: 180px minmax(0, 1fr);
+  }
+  .kb-articles > .kb-article-panel {
+    grid-column: span 2;
+  }
+  .kb-review {
+    grid-template-columns: 300px minmax(0, 1fr);
+  }
+  .kb-editor,
+  .kb-split-halves {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .kb-split-side {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+}
+@media (min-width: 1536px) {
+  .kb-articles {
+    grid-template-columns: 180px minmax(0, 1fr) 360px;
+  }
+  .kb-articles > .kb-article-panel {
+    grid-column: auto;
+  }
+}
+
+.kb-facts {
+  grid-template-columns: 130px minmax(0, 1fr);
+  margin: 0;
+}
+
+.kb-settings-list {
+  grid-template-columns: minmax(120px, 40%) minmax(0, 1fr);
+  margin: 0;
+}
+
+.kb-measure {
+  max-width: 68ch;
+}
+
+.kb-code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.kb-textarea {
+  width: 100%;
+  min-height: 16rem;
+  resize: vertical;
+  padding: 0.5rem 0.625rem;
+  border: 1px solid var(--oa-line-strong);
+  border-radius: 0.375rem;
+  background: var(--oa-surface);
+  color: var(--oa-fg);
+  font-family: var(--oa-font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+}
+.kb-textarea:focus-visible {
+  outline: 2px solid var(--oa-ring, var(--oa-accent));
+  outline-offset: 1px;
+}
+
+/* An article's body, as the help center shows it. */
+.kb-article {
+  overflow-wrap: anywhere;
+}
+.kb-article > * + * {
+  margin-top: 0.5rem;
+}
+.kb-article h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.75rem;
+}
+.kb-article h3,
+.kb-article h4 {
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0.625rem;
+}
+.kb-article ol {
+  list-style: decimal;
+  padding-left: 1.25rem;
+}
+.kb-article ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+}
+.kb-article li + li {
+  margin-top: 0.25rem;
+}
+.kb-article a {
+  color: var(--oa-accent-text, var(--oa-accent));
+  text-decoration: underline;
+}
+.kb-article img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+}
+.kb-article code,
+.kb-article pre {
+  font-family: var(--oa-font-mono);
+  font-size: 0.8125rem;
+}
+.kb-article pre {
+  background: var(--oa-canvas);
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.375rem;
+  overflow-x: auto;
+}
+.kb-article blockquote {
+  border-left: 3px solid var(--oa-line);
+  padding-left: 0.75rem;
+  color: var(--oa-fg-muted);
+}
+.kb-article table {
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+}
+.kb-article th,
+.kb-article td {
+  border: 1px solid var(--oa-line);
+  padding: 0.25rem 0.5rem;
+  text-align: left;
+}
+
+/* What changed since the published version, for the reviewer. */
+.kb-changed {
+  display: block;
+  text-decoration: none;
+  background: var(--oa-success-soft);
+  border-radius: 0.25rem;
+  padding: 0 0.25rem;
+}

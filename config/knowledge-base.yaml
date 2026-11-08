@@ -1,0 +1,26 @@
+# The help center's settings. This file is the only place they are changed; a change is picked up within a minute,
+# and a file with a mistake leaves the last good one in place. Articles are written in the UI.
+site:
+  name: Acme Help
+  # address: https://help.example.com   # its own address; without it the help center is at <public url>/help
+  languages: [tr, en]
+  default_language: tr # shown to readers of a language an article is not written in
+  # analytics: https://analytics.example.com/s/help.js   # an Analytics site's script on every help center page
+topics:
+  - Getting started
+  - { name: Account and sign-in, slug: account, names: { tr: Hesap ve giriş } }
+  - { name: Invoices and e-Fatura, slug: invoices, names: { tr: Faturalar ve e-Fatura } }
+  - { name: Banking, names: { tr: Banka } }
+  - { name: Billing and plans, slug: billing, names: { tr: Ödeme ve paketler } }
+review:
+  required: true # a second person publishes
+helpful:
+  list_below: 60% # owners see articles under this
+  min_answers: 10
+plans:
+  business: { name: Business plan }
+readers:
+  key: KNOWLEDGE_BASE_READER_KEY # the variable that holds the key your app signs reader links with
+suggest:
+  in: [helpdesk-form, live-chat]
+  sites: [https://www.example.com] # pages that load /s/suggest.js

@@ -1,0 +1,37 @@
+# Knowledge Base. Settings are in knowledge-base.yaml; articles are written in the UI.
+#
+#   openssl rand -hex 32 > openasy-kek   # the product's key: sign-in secrets (ADR 0021). Keep it with your backups
+#   docker compose up -d
+#   docker compose logs knowledge-base | grep 'no owner yet'   # the one-time link that creates the owner account
+services:
+  knowledge-base:
+    image: ghcr.io/openasy/knowledge-base:0.1.0
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    tmpfs: [/tmp]
+    ports:
+      - "127.0.0.1:8080:8080" # UI, API, the help center at /help and the suggest script; put a TLS proxy in front
+    volumes:
+      - knowledge-base-data:/data # SQLite database: articles, views, answers and searches
+      - ./config:/config:ro # knowledge-base.yaml; mount the folder so an editor's save reaches it
+    secrets:
+      - openasy-kek # mounted at /run/secrets/openasy-kek
+    environment:
+      # The address people open Knowledge Base at, and the sites load the suggest script from; with a TLS proxy, its https:// URL.
+      KNOWLEDGE_BASE_PUBLIC_URL: ${KNOWLEDGE_BASE_PUBLIC_URL:-http://localhost:8080}
+      KNOWLEDGE_BASE_CONFIG: /config/knowledge-base.yaml
+      # The key your app signs reader links for plan-only articles with (32 characters or more), named by readers.key:
+      # KNOWLEDGE_BASE_READER_KEY: ${KNOWLEDGE_BASE_READER_KEY}
+      # Sign in with your identity provider (OIDC), see the README:
+      # OPENASY_OIDC_ISSUER: https://login.example.com
+      # OPENASY_OIDC_CLIENT_ID: knowledge-base
+      # OPENASY_OIDC_CLIENT_SECRET: ${OPENASY_OIDC_CLIENT_SECRET}
+
+volumes:
+  knowledge-base-data:
+
+secrets:
+  openasy-kek:
+    file: ./openasy-kek
