@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "OpenAsy Knowledge Base API",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "summary": "A public help center of articles by topic and language, suggested in the ticket form and the chat window.",
     "description": "Every screen of Knowledge Base uses this API, and so can your scripts (ADR 0014). Within `/api/v1` changes are additive only; anything removed is deprecated first (ADR 0024). Errors use Problem Details (RFC 9457).\n\nThe help center itself is plain HTML at `/help/` (or at the address the settings file gives it): `/<lang>/`, `/<lang>/topics/<slug>`, `/<lang>/articles/<slug>` and `/<lang>/search?q=`. The ticket form and the chat window load `/s/suggest.js`, which calls `/api/v1/suggest` as people type. Settings come from the settings file, never the API. Everything else takes the session of a signed-in person or an API token, and each operation names the role it needs (`x-openasy-role`: viewer, editor, admin; ADR 0003).\n\nSign-in, members and API tokens are under `/api/v1/auth`, provided by [@openasy/auth](https://github.com/openasy/auth#routes).",
     "license": {

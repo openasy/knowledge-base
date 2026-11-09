@@ -1,6 +1,6 @@
 {
   "name": "@openasy/knowledge-base",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "OpenAsy Knowledge Base: a public help center of articles by topic and language, suggested in the ticket form and the chat window.",
   "license": "AGPL-3.0-only",
