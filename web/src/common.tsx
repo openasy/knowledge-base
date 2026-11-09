@@ -3,6 +3,7 @@ import { useAuth } from "@openasy/auth/react";
 import { useCallback, useEffect, useState, type ReactNode } from "react";
 import { api, MfaSetupRequired, Unauthorized, type Config, type State } from "./api.ts";
 import type { T } from "./i18n.ts";
+import { viewerLocale } from "./i18n.ts";
 
 /** Data loading with the session; when it ends, the sign-in screen comes back. */
 export function useApi() {
@@ -84,10 +85,10 @@ export function markChanges(draft: string, published: string | null): string {
 
 // ---------------------------------------------------------------- Formatting
 
-export const fmt = (n: number) => n.toLocaleString();
+export const fmt = (n: number) => n.toLocaleString(viewerLocale());
 export const pct = (share: number) => `${Math.round(share * 1000) / 10}%`;
-export const shortDay = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString(undefined, { month: "short", day: "numeric", timeZone: "UTC" });
-export const date = (iso: string) => new Date(iso).toLocaleDateString(undefined, { day: "numeric", month: "short" });
+export const shortDay = (d: string) => new Date(`${d}T00:00:00Z`).toLocaleDateString(viewerLocale(), { month: "short", day: "numeric", timeZone: "UTC" });
+export const date = (iso: string) => new Date(iso).toLocaleDateString(viewerLocale(), { day: "numeric", month: "short" });
 
 /** A language's own name: Türkçe, English, Deutsch. */
 export function languageName(code: string) {

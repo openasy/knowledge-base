@@ -43,7 +43,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Article, Member, ProductLink, Report, Settings, Summary } from "./api.ts";
 import { ArticlesPage, EditorPage } from "./articles.tsx";
 import { date, fmt, host, languageIn, languageName, placeName, topicName, useApi, useLoad, type Call } from "./common.tsx";
-import { useT } from "./i18n.ts";
+import { useT, viewerLocale, setViewerLocale } from "./i18n.ts";
 import { GapsPage, IntegrationsPage, ReviewPage, SettingsFilePage, SuggestionsPage } from "./pages.tsx";
 
 const PAGES = ["articles", "review", "gaps", "suggestions", "integrations", "settings", "account", "members", "signin", "tokens", "about"] as const;
@@ -62,6 +62,7 @@ function parseRoute(path: string): Route {
 function OverviewPage({ call, settings }: { call: Call; settings: Settings }) {
   const t = useT();
   const [locale] = useLocalePreference();
+  setViewerLocale(locale);
   const [r] = useLoad<Report>(call, "/api/v1/report?days=30");
   const config = settings.config!;
   const change = r && r.totals.viewsBefore ? Math.round(((r.totals.views - r.totals.viewsBefore) / r.totals.viewsBefore) * 100) : null;
@@ -122,7 +123,9 @@ function OverviewPage({ call, settings }: { call: Call; settings: Settings }) {
             <Panel title={t("overview.viewsChart")} description={t("overview.viewsChartDetail")}>
               <TimeSeriesChart
                 label={t("overview.viewsChartLabel")}
-                labels={r.series.map((d) => new Date(`${d.day}T00:00:00Z`).toLocaleDateString(undefined, { day: "numeric", month: "short", timeZone: "UTC" }))}
+                labels={r.series.map((d) =>
+                  new Date(`${d.day}T00:00:00Z`).toLocaleDateString(viewerLocale(), { day: "numeric", month: "short", timeZone: "UTC" }),
+                )}
                 height={200}
                 xTicks={7}
                 format={(v) => fmt(Math.round(v))}
@@ -153,7 +156,7 @@ function OverviewPage({ call, settings }: { call: Call; settings: Settings }) {
                         <span className="truncate text-sm text-fg">{a.title}</span>
                         <span className="text-2xs text-fg-muted">{topicName(config, a.topic, t)}</span>
                       </a>
-                      <span className="shrink-0 text-right font-mono text-xs tabular-nums">
+                      <span className="shrink-0 text-end font-mono text-xs tabular-nums">
                         {fmt(a.views)}
                         <span className="block text-2xs text-fg-muted">{t("overview.answeredCount", { count: a.answered })}</span>
                       </span>

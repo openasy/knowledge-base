@@ -408,7 +408,7 @@ export function ArticlesPage({ call, settings, members, onChanged }: { call: Cal
                   type="button"
                   onClick={() => setTopic(tp.slug)}
                   aria-current={tp.slug === topic ? "true" : undefined}
-                  className={`kb-topic flex w-full items-center justify-between gap-2 px-3 py-1.5 text-left text-sm ${tp.slug === topic ? "bg-accent-soft text-accent-text" : "text-fg"}`}
+                  className={`kb-topic flex w-full items-center justify-between gap-2 px-3 py-1.5 text-start text-sm ${tp.slug === topic ? "bg-accent-soft text-accent-text" : "text-fg"}`}
                 >
                   <span className="truncate">{tp.name}</span>
                   <span className="text-2xs text-fg-muted tabular-nums">{all.filter((a) => inTopic(a, tp.slug)).length}</span>

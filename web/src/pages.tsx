@@ -148,7 +148,7 @@ export function ReviewPage({ call, settings, onChanged }: { call: Call; settings
                     type="button"
                     onClick={() => setActive(a.id)}
                     aria-current={a.id === current ? "true" : undefined}
-                    className={`kb-topic flex w-full flex-col px-3 py-1.5 text-left ${a.id === current ? "bg-accent-soft text-accent-text" : "text-fg"}`}
+                    className={`kb-topic flex w-full flex-col px-3 py-1.5 text-start ${a.id === current ? "bg-accent-soft text-accent-text" : "text-fg"}`}
                   >
                     <span className="truncate text-sm font-medium">{a.title}</span>
                     <span className="text-2xs text-fg-muted">
